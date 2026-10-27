@@ -1,0 +1,64 @@
+Compilation and Execution:
+
+    This application requires that the file structure is as follows:
+    A3
+     - bin
+     - build
+     AIPlayer.cpp
+     AIPlayer.h
+     Assignment_Report.txt
+     game.cpp
+     Makefile
+     RandomPlayer.h
+
+    Run the following commands to execute the connect 4 game:
+
+    make clean
+    make run
+    ./bin/run
+
+Minimax and Alpha-Beta pruning algorithm:
+
+    The minimax algorithm is implemented as a member function within the Player class of 
+    AIPlayer.cpp. The function is named minimax(). This function includes Alpha-Beta pruning by 
+    adding the parameters alpha and beta to the minimax parameter list. Once the algorithm makes 
+    it to the assignment specified depth of 6 ply, the leaf nodes are evaluated by the 
+    evaluation() function and are bubbled up according to minimax plus alpha beta algorithm 
+    functionality. i.e. The max player will allways pick the highest evaluated move, the min 
+    player will allways pick the lowest evaluated move, and the alpha-beta pruning will prune 
+    off any states where the evaluation wont matter, because the maximizer or minimizer wouldnt 
+    pick it anyways.
+
+Evaluation function:
+
+    My evaluation function is named evaluation(), takes a state (a board) as a parameter, and
+    can be found as a member funcion of the Player class in Player.cpp.
+    
+    It searches the entire board and for every AI marble (myMarble) it finds, it checks to see 
+    if there is a row or column of 3 marbles from the other player (otherMarble). While this 
+    isnt a perfect method, the intent is for the AI agent to give a high evaluation to the moves
+    that are most likely blocking a connect 4 from the other player. It should be noted
+    that the AI agent currently does not highly prioritize a diagonal connect 4 block.
+    It also looks for states with 2 adjacent myMarbles and adds more to the evaluation score
+    if those are found. For each adjacency check, if there arent two myMarbles next to eachother
+    in that direction, it will subtract 1 from the evaluation score favouring the otherPlayer.
+    The intent of this is to prioritize moves that are next to other myMarbles and to discourage
+    moves that arent next to another myMarble.
+    Finally it checks to see if there are any adjacent otherMarbles (other players marbles)
+    and subtracts evaluation points to favour the other player. This final part is not 
+    necessarily logical, however It was left over from a previous version of my evaluation
+    function and my AI works well with it left in. 
+
+    Overall I have extensively revised my evaluation function and I find that my AI wins against
+    human and random players most of the time. Therefore I am fairly confident with the logic.
+
+    If I had time, I would add checks for diagonal lines of 3 and evaluate the moves
+    that block those lines highly.
+
+Known Bugs:
+    I do not know of any bugs in this code.
+
+Comments:
+
+    You can choose to play against the AI or have the AI play against the Random player you 
+    provided us with by entering 1 or 2 respectively when prompted.
